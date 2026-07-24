@@ -267,6 +267,12 @@ WidevineCdm/
 └── manifest.json
 ```
 
+Remember to set suitable permissions:
+
+```bash
+sudo chmod 775 -R {path to widevine folder}
+```
+
 Next, map that folder in your `docker-compose.yaml`:
 
 ```yaml title="docker-compose.yaml"
