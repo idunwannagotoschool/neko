@@ -4,7 +4,7 @@ description: "Customize your browser settings and configurations in Neko."
 ---
 
 import { AppIcon } from '@site/src/components/AppIcon';
-import { ProfileDirectoryPaths, PolicyFilePaths } from './browsers'
+import { ProfileDirectoryPaths, PolicyFilePaths, WidevineDirectoryPaths } from './browsers'
 
 # Browsers Customization
 
@@ -230,3 +230,57 @@ The ID of the extension can be found in the URL of the extension in the Chrome W
   ]
 }
 ```
+
+## DRM for ARM64 {#arm64-drm}
+
+To install Widevine on browsers, first use [AsahiLinux's script](https://github.com/AsahiLinux/widevine-installer) to obtain a copy of Widevine for ARM64:
+
+```bash
+# Clone the repository and navigate into the directory
+git clone https://github.com/AsahiLinux/widevine-installer.git
+cd widevine-installer
+
+# The script must be run as root
+sudo ./widevine-installer
+```
+
+You should find `libwidevinecdm.so` and `manifest.json` in `/var/lib/widevine`.
+
+Copy these two files into a folder (e.g. `~/neko/gmp-widevinecdm` for Firefox / `~/neko/WidevineCdm` for Chromium-based) in the following structure:
+
+For Firefox:
+
+```text
+gmp-widevinecdm/
+└── 4.10.2662.3/
+    ├── manifest.json
+    └── libwidevinecdm.so
+```
+
+For Chromium-based browsers:
+
+```text
+WidevineCdm/
+├── _platform_specific/
+│   └── linux_arm64/
+│       └── libwidevinecdm.so
+└── manifest.json
+```
+
+Next, map that folder in your `docker-compose.yaml`:
+
+```yaml title="docker-compose.yaml"
+services:
+  neko:
+  ...
+    volumes:
+      - "{path to local Widevine folder}:{Widevine directory path}"
+```
+
+<WidevineDirectoryPaths />
+
+Finally, use an extension to change your user-agent to: `Mozilla/5.0 (X11; CrOS aarch64 15662.0.0) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/120.0.6098.0 Safari/537.36`
+
+:::note
+For Brave, you have to go to `brave://settings/extensions` and enable Widevine
+:::
