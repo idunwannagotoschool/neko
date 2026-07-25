@@ -272,7 +272,7 @@ services:
 
 In your [policies.json](#policy-files), add the following:
 
-```json title=policies.json
+```json title="policies.json"
 {
   "policies": {
     ...
