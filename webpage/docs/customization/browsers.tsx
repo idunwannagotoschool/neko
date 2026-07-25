@@ -71,7 +71,7 @@ export function WidevineDirectoryPaths({flavors, ...props}: { flavors: string[] 
                     <tr key={tag}>
                         <td><Link to={`/docs/v3/installation/docker-images#${tag}`} ><strong>{tag}</strong></Link></td>
                         <td>
-                            {policiesFile ? <code>{policiesFile}</code> : <i>Does not support ARM64.</i>}
+                            {widevine ? <code>{widevine}</code> : <i>Does not support ARM64.</i>}
                         </td>
                     </tr>
                 ))}
