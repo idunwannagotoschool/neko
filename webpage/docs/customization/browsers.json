@@ -3,8 +3,7 @@
         "tag": "firefox",
         "flavor": "firefox-based",
         "profileDir": "/home/neko/.mozilla/firefox/profile.default",
-        "policiesFile": "/usr/lib/firefox/distribution/policies.json",
-        "widevine": "/usr/lib/firefox/gmp-widevinecdm"
+        "policiesFile": "/usr/lib/firefox/distribution/policies.json"
     },
     {
         "tag": "tor-browser",
